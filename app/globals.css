@@ -72,6 +72,29 @@
   }
 }
 
+body.custom-background {
+  position: static;
+  background-image: url('../public/images/Fondo\ 02derecha.jpg');
+  /* background-size: cover; */
+  background-repeat: repeat-y;
+}
+
+body.custom-background::before {
+  content: '';
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0); 
+  z-index: 1;
+}
+
+body.custom-background * {
+  position: relative;
+  z-index: 2;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -79,4 +102,15 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Sobrescribir las clases conflictivas */
+.to-white {
+  --tw-gradient-to: unset !important;
+}
+
+.from-blue-50 {
+  --tw-gradient-from: unset !important;
+  --tw-gradient-to: unset !important;
+  --tw-gradient-stops: unset !important;
 }

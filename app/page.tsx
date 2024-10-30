@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Shield, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { QuizForm } from "@/components/quiz-form";
 import { questions } from "@/lib/questions";
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function Home() {
   const [userName, setUserName] = useState("");
@@ -15,6 +15,7 @@ export default function Home() {
   const [answers, setAnswers] = useState<boolean[][]>([]);
   const [score, setScore] = useState(0);
   const [showForm, setShowForm] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleAnswer = (answer: boolean) => {
     const newAnswers = [...answers];
@@ -23,10 +24,6 @@ export default function Home() {
     }
     newAnswers[currentStep][0] = answer; // Asigna el valor booleano a la primera posición del array
     setAnswers(newAnswers);
-
-    if (answer === questions[currentStep].correctAnswer) {
-      setScore(score + 1);
-    }
   };
 
   const handleNext = () => {
@@ -35,11 +32,34 @@ export default function Home() {
     } else {
       setShowForm(true);
     }
+    setIsVerified(false);
   };
 
-  const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+  const handleVerify = () => {
+    // Verifica si la respuesta es correcta
+    if (isAnswerCorrect(answers[currentStep], currentQuestion.correctAnswer)) {
+      // Incrementa el puntaje
+      setScore(score + 1);
+    }
+    setIsVerified(true);
+  };
+
+  const arraysAreEqual = (arr1: boolean[], arr2: boolean[]): boolean => {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+  };
+
+  const isAnswerCorrect = (
+    answer: boolean[],
+    correctAnswer: boolean | boolean[]
+  ): boolean => {
+    if (Array.isArray(correctAnswer)) {
+      return arraysAreEqual(answer, correctAnswer);
+    } else {
+      return answer[0] === correctAnswer;
     }
   };
 
@@ -48,11 +68,11 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
-            <Shield className="w-16 h-16 text-blue-600 mx-auto mb-6" />
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <Shield className="w-16 h-16 text-blue-400 mx-auto mb-6" />
+            <h1 className="text-4xl font-bold text-white mb-4">
               Test de Ciberseguridad Empresarial
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-400 mb-8">
               Evalúa el nivel de protección de tu empresa contra el ciberfraude
             </p>
           </div>
@@ -147,20 +167,20 @@ export default function Home() {
   const currentQuestion = questions[currentStep];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <span className="text-sm font-medium text-gray-500">
+            <span className="text-sm font-medium text-gray-200">
               Pregunta {currentStep + 1} de {questions.length}
             </span>
-            <span className="text-sm font-medium text-blue-600">
+            <span className="text-sm font-medium text-blue-100">
               {Math.round(((currentStep + 1) / questions.length) * 100)}%
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-blue-600 rounded-full h-2 transition-all duration-300"
+              className="bg-blue-100 rounded-full h-2 transition-all duration-300"
               style={{
                 width: `${((currentStep + 1) / questions.length) * 100}%`,
               }}
@@ -182,6 +202,7 @@ export default function Home() {
                     : "bg-gray-100 text-gray-900 hover:bg-gray-200"
                 }`}
                 onClick={() => handleAnswer(true)}
+                disabled={isVerified}
               >
                 Sí
               </Button>
@@ -192,88 +213,111 @@ export default function Home() {
                     : "bg-gray-100 text-gray-900 hover:bg-gray-200"
                 }`}
                 onClick={() => handleAnswer(false)}
+                disabled={isVerified}
               >
                 No
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 gap-4 mb-6">
               {currentQuestion.images &&
                 currentQuestion.images.map((image, index) => (
-                  <div key={index} className="space-y-4">
+                    <div key={index} className="space-y-4 my-5 border rounded-lg p-4">
                     <Image
                       src={image}
                       alt={`Imagen ${index + 1}`}
                       className="w-full rounded-lg shadow-md"
-                      layout="responsive"
-                      width={700} // Ajusta estos valores según tus necesidades
-                      height={475} // Ajusta estos valores según tus necesidades
+                      width={700}
+                      height={475}
                     />
-                    <div className="flex justify-center space-x-4">
+                    <div className="flex justify-center space-x-4 mb-10">
                       <Button
-                        className={`${
-                          answers[currentStep]?.[index] === true
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                        }`}
-                        onClick={() => {
-                          const newAnswers = [...answers];
-                          if (!newAnswers[currentStep]) {
-                            newAnswers[currentStep] = [];
-                          }
-                          newAnswers[currentStep][index] = true;
-                          setAnswers(newAnswers);
-                        }}
+                      className={`${
+                        answers[currentStep]?.[index] === true
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                      } py-4 px-8 text-xl`}
+                      onClick={() => {
+                        const newAnswers = [...answers];
+                        if (!newAnswers[currentStep]) {
+                        newAnswers[currentStep] = [];
+                        }
+                        newAnswers[currentStep][index] = true;
+                        setAnswers(newAnswers);
+                      }}
+                      disabled={isVerified}
                       >
-                        Verdadero
+                      Verdadero
                       </Button>
                       <Button
-                        className={`${
-                          answers[currentStep]?.[index] === false
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                        }`}
-                        onClick={() => {
-                          const newAnswers = [...answers];
-                          if (!newAnswers[currentStep]) {
-                            newAnswers[currentStep] = [];
-                          }
-                          newAnswers[currentStep][index] = false;
-                          setAnswers(newAnswers);
-                        }}
+                      className={`${
+                        answers[currentStep]?.[index] === false
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                      } py-4 px-8 text-xl`}
+                      onClick={() => {
+                        const newAnswers = [...answers];
+                        if (!newAnswers[currentStep]) {
+                        newAnswers[currentStep] = [];
+                        }
+                        newAnswers[currentStep][index] = false;
+                        setAnswers(newAnswers);
+                      }}
+                      disabled={isVerified}
                       >
-                        Falso
+                      Falso
                       </Button>
                     </div>
-                  </div>
+                    </div>
                 ))}
             </div>
           )}
 
           {answers[currentStep] !== undefined && (
             <>
-              <div className="p-4 bg-gray-50 rounded-lg mb-6">
-                <p className="text-gray-700">{currentQuestion.explanation}</p>
-              </div>
-              <div className="flex gap-4">
-                {currentStep > 0 && (
-                  <Button
-                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 py-6 text-lg"
-                    onClick={handleBack}
-                  >
-                    <ArrowLeft className="mr-2 h-5 w-5" />
-                    Anterior
-                  </Button>
+              <div className="gap-4 mb-6">
+                {!isVerified && (
+                  <div className="flex justify-center">
+                    <Button
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-6 text-lg"
+                      onClick={handleVerify}
+                    >
+                      Verificar
+                    </Button>
+                  </div>
                 )}
-                <Button
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg"
-                  onClick={handleNext}
-                >
-                  {currentStep < questions.length - 1
-                    ? "Siguiente"
-                    : "Ver Resultados"}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                {isVerified && (
+                  <>
+                    <div className="p-4 bg-gray-50 rounded-lg mb-6">
+                      <p className="text-gray-700">
+                        {isAnswerCorrect(
+                          answers[currentStep],
+                          currentQuestion.correctAnswer
+                        )
+                          ? currentQuestion.explanationYes ||
+                            currentQuestion.explanationCorrect
+                          : currentQuestion.explanationNo ||
+                            currentQuestion.explanationIncorrect}
+                        {/* {answers[currentStep][0] === currentQuestion.correctAnswer
+                          ? currentQuestion.explanationYes ||
+                            currentQuestion.explanationCorrect
+                          : currentQuestion.explanationNo ||
+                            currentQuestion.explanationIncorrect} */}
+                      </p>
+                    </div>
+                    <div className="flex justify-center">
+                      <Button
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg mt-4"
+                        onClick={handleNext}
+                      >
+                        {currentStep < questions.length - 1
+                          ? "Siguiente"
+                          : "Ver Resultados"}
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             </>
           )}
