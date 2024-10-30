@@ -7,17 +7,21 @@ import { Input } from "@/components/ui/input";
 import { Shield, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { QuizForm } from "@/components/quiz-form";
 import { questions } from "@/lib/questions";
+import Image from 'next/image';
 
 export default function Home() {
   const [userName, setUserName] = useState("");
   const [currentStep, setCurrentStep] = useState(-1);
-  const [answers, setAnswers] = useState<boolean[]>([]);
+  const [answers, setAnswers] = useState<boolean[][]>([]);
   const [score, setScore] = useState(0);
   const [showForm, setShowForm] = useState(false);
 
   const handleAnswer = (answer: boolean) => {
     const newAnswers = [...answers];
-    newAnswers[currentStep] = answer;
+    if (!newAnswers[currentStep]) {
+      newAnswers[currentStep] = [];
+    }
+    newAnswers[currentStep][0] = answer; // Asigna el valor booleano a la primera posición del array
     setAnswers(newAnswers);
 
     if (answer === questions[currentStep].correctAnswer) {
@@ -52,7 +56,7 @@ export default function Home() {
               Evalúa el nivel de protección de tu empresa contra el ciberfraude
             </p>
           </div>
-          
+
           <Card className="p-8 bg-white shadow-lg rounded-2xl">
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
@@ -60,33 +64,48 @@ export default function Home() {
                   <CheckCircle2 className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">7 Preguntas Clave</h3>
-                  <p className="text-gray-600">Evaluación completa de tus prácticas de seguridad</p>
+                  <h3 className="font-semibold text-gray-900">
+                    7 Preguntas Clave
+                  </h3>
+                  <p className="text-gray-600">
+                    Evaluación completa de tus prácticas de seguridad
+                  </p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-4">
                 <div className="bg-blue-100 p-3 rounded-full">
                   <CheckCircle2 className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Resultados Instantáneos</h3>
-                  <p className="text-gray-600">Obtén una evaluación inmediata de tu nivel de protección</p>
+                  <h3 className="font-semibold text-gray-900">
+                    Resultados Instantáneos
+                  </h3>
+                  <p className="text-gray-600">
+                    Obtén una evaluación inmediata de tu nivel de protección
+                  </p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-4">
                 <div className="bg-blue-100 p-3 rounded-full">
                   <CheckCircle2 className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Asesoramiento Personalizado</h3>
-                  <p className="text-gray-600">Recibe recomendaciones específicas para tu empresa</p>
+                  <h3 className="font-semibold text-gray-900">
+                    Asesoramiento Personalizado
+                  </h3>
+                  <p className="text-gray-600">
+                    Recibe recomendaciones específicas para tu empresa
+                  </p>
                 </div>
               </div>
 
               <div className="mt-8">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Para comenzar, introduce tu nombre:
                 </label>
                 <Input
@@ -116,7 +135,13 @@ export default function Home() {
   }
 
   if (showForm) {
-    return <QuizForm score={score} totalQuestions={questions.length} userName={userName} />;
+    return (
+      <QuizForm
+        score={score}
+        totalQuestions={questions.length}
+        userName={userName}
+      />
+    );
   }
 
   const currentQuestion = questions[currentStep];
@@ -152,7 +177,7 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-4 mb-6">
               <Button
                 className={`py-6 text-lg ${
-                  answers[currentStep] === true
+                  answers[currentStep]?.[0] === true
                     ? "bg-blue-600 text-white"
                     : "bg-gray-100 text-gray-900 hover:bg-gray-200"
                 }`}
@@ -162,7 +187,7 @@ export default function Home() {
               </Button>
               <Button
                 className={`py-6 text-lg ${
-                  answers[currentStep] === false
+                  answers[currentStep]?.[0] === false
                     ? "bg-blue-600 text-white"
                     : "bg-gray-100 text-gray-900 hover:bg-gray-200"
                 }`}
@@ -173,51 +198,55 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4 mb-6">
-              {currentQuestion.images.map((image, index) => (
-                <div key={index} className="space-y-4">
-                  <img
-                    src={image}
-                    alt={`Imagen ${index + 1}`}
-                    className="w-full rounded-lg shadow-md"
-                  />
-                  <div className="flex justify-center space-x-4">
-                    <Button
-                      className={`${
-                        answers[currentStep]?.[index] === true
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                      }`}
-                      onClick={() => {
-                        const newAnswers = [...answers];
-                        if (!newAnswers[currentStep]) {
-                          newAnswers[currentStep] = [];
-                        }
-                        newAnswers[currentStep][index] = true;
-                        setAnswers(newAnswers);
-                      }}
-                    >
-                      Verdadero
-                    </Button>
-                    <Button
-                      className={`${
-                        answers[currentStep]?.[index] === false
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                      }`}
-                      onClick={() => {
-                        const newAnswers = [...answers];
-                        if (!newAnswers[currentStep]) {
-                          newAnswers[currentStep] = [];
-                        }
-                        newAnswers[currentStep][index] = false;
-                        setAnswers(newAnswers);
-                      }}
-                    >
-                      Falso
-                    </Button>
+              {currentQuestion.images &&
+                currentQuestion.images.map((image, index) => (
+                  <div key={index} className="space-y-4">
+                    <Image
+                      src={image}
+                      alt={`Imagen ${index + 1}`}
+                      className="w-full rounded-lg shadow-md"
+                      layout="responsive"
+                      width={700} // Ajusta estos valores según tus necesidades
+                      height={475} // Ajusta estos valores según tus necesidades
+                    />
+                    <div className="flex justify-center space-x-4">
+                      <Button
+                        className={`${
+                          answers[currentStep]?.[index] === true
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                        }`}
+                        onClick={() => {
+                          const newAnswers = [...answers];
+                          if (!newAnswers[currentStep]) {
+                            newAnswers[currentStep] = [];
+                          }
+                          newAnswers[currentStep][index] = true;
+                          setAnswers(newAnswers);
+                        }}
+                      >
+                        Verdadero
+                      </Button>
+                      <Button
+                        className={`${
+                          answers[currentStep]?.[index] === false
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                        }`}
+                        onClick={() => {
+                          const newAnswers = [...answers];
+                          if (!newAnswers[currentStep]) {
+                            newAnswers[currentStep] = [];
+                          }
+                          newAnswers[currentStep][index] = false;
+                          setAnswers(newAnswers);
+                        }}
+                      >
+                        Falso
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
 
@@ -240,7 +269,9 @@ export default function Home() {
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg"
                   onClick={handleNext}
                 >
-                  {currentStep < questions.length - 1 ? "Siguiente" : "Ver Resultados"}
+                  {currentStep < questions.length - 1
+                    ? "Siguiente"
+                    : "Ver Resultados"}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
