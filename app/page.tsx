@@ -178,7 +178,7 @@ export default function Home() {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-blue-100 rounded-full h-2 transition-all duration-300"
+              className="bg-blue-600 rounded-full h-2 transition-all duration-300"
               style={{
                 width: `${((currentStep + 1) / questions.length) * 100}%`,
               }}

@@ -1,57 +1,57 @@
 export const questions = [
   {
     type: "yesno",
-    question: "¿Tu empresa tiene implementada una política de contraseñas seguras?",
+    question: "¿Tu equipo de atención al cliente ha detectado problemas en envíos que no se han realizado desde la tienda oficial?",
     correctAnswer: true,
-    explanationYes: "Excelente. Una política de contraseñas seguras es fundamental para proteger los accesos a sistemas y datos críticos. Continúa manteniendo y actualizando esta política regularmente.",
-    explanationNo: "Es crucial implementar una política de contraseñas seguras. Debe incluir requisitos de longitud mínima, caracteres especiales y cambios periódicos para mejorar significativamente la seguridad de tu empresa."
+    explanationYes: "Es posible que estés enfrentando un caso de suplantación de marca. Clientes pueden haber sido estafados a través de tiendas falsas que están usando tu nombre y logo. Esto puede dañar la reputación de tu marca y generar confusión entre tus clientes legítimos.",
+    explanationNo: "Aunque no hayas detectado este problema aún, es importante mantenerse alerta. La suplantación de marca es una táctica común de los ciberdelincuentes y puede surgir en cualquier momento, afectando la confianza de tus clientes y tu reputación."
   },
   {
     type: "yesno",
-    question: "¿Realizas copias de seguridad periódicas de la información crítica?",
+    question: "¿Has notado una bajada de ingresos y no sabes de dónde viene? ¿Bajadas de tráfico puntuales o bajadas en retornos en campañas de publicidad?",
     correctAnswer: true,
-    explanationYes: "Muy bien. Las copias de seguridad regulares son esenciales para recuperar datos en caso de ciberataques, fallos técnicos o desastres naturales. Asegúrate de probar la restauración de estas copias periódicamente.",
-    explanationNo: "Es altamente recomendable implementar un sistema de copias de seguridad periódicas. Esto te permitirá recuperar información crítica en caso de incidentes de seguridad o fallos técnicos, minimizando el riesgo de pérdida de datos."
+    explanationYes: "Estas señales podrían indicar la presencia de campañas de anuncios falsos que están desviando a tus usuarios hacia tiendas clonadas. Esto no solo afecta tus ingresos, sino que también expone a tus clientes potenciales a estafas.",
+    explanationNo: "Aunque no hayas notado estos cambios, es crucial monitorear constantemente tus métricas de tráfico e ingresos. Cambios inesperados podrían ser la primera señal de actividades fraudulentas que afectan tu negocio en línea."
   },
   {
     type: "yesno",
-    question: "¿Tu personal ha recibido formación en ciberseguridad en el último año?",
+    question: "¿Te han pedido los usuarios un descuento u oferta que tú no has anunciado?",
     correctAnswer: true,
-    explanationYes: "Excelente práctica. La formación regular en ciberseguridad mantiene a los empleados actualizados sobre las últimas amenazas y mejores prácticas de seguridad, fortaleciendo la primera línea de defensa de tu empresa.",
-    explanationNo: "Es importante proporcionar formación en ciberseguridad al personal al menos una vez al año. Esto ayuda a crear conciencia sobre las amenazas actuales y reduce el riesgo de incidentes de seguridad causados por errores humanos."
+    explanationYes: "Es probable que los usuarios hayan visto una oferta muy llamativa a través de anuncios en redes sociales u otros canales digitales. Estos anuncios falsos suelen ser creados por estafadores para atraer a clientes potenciales a sitios web fraudulentos.",
+    explanationNo: "Aunque no hayas experimentado esto aún, es importante estar atento a cualquier mención de ofertas o descuentos que tu empresa no haya autorizado. Estos pueden ser signos de campañas fraudulentas que usan tu marca para engañar a los consumidores."
   },
   {
     type: "yesno",
-    question: "¿Tienes un protocolo de respuesta ante incidentes de seguridad?",
+    question: "¿El personal de tus tiendas físicas es preguntado por pedidos que no llegan?",
     correctAnswer: true,
-    explanationYes: "Muy bien. Un protocolo de respuesta bien definido permite actuar rápidamente ante un incidente de seguridad, minimizando el impacto y el tiempo de recuperación. Asegúrate de revisarlo y actualizarlo regularmente.",
-    explanationNo: "Es crucial desarrollar un protocolo de respuesta ante incidentes de seguridad. Esto te permitirá actuar de manera rápida y eficiente en caso de un ataque, reduciendo potencialmente el daño y el tiempo de recuperación."
+    explanationYes: "Esta situación podría deberse a clientes que creen haber comprado en la marca oficial pero que en realidad han sido estafados por sitios web fraudulentos. Esto no solo genera frustración en los clientes, sino que también puede dañar la reputación de tu marca.",
+    explanationNo: "Aunque no se haya presentado esta situación, es importante capacitar al personal de las tiendas físicas para identificar y manejar adecuadamente este tipo de consultas, ya que podrían ser indicadores de actividades fraudulentas en línea que afectan a tu marca."
   },
   {
     type: "yesno",
-    question: "¿Utilizas autenticación de dos factores en los sistemas críticos?",
+    question: "¿Has visto anuncios que parecen de tu marca pero no estas seguro si son tuyos? ",
     correctAnswer: true,
-    explanationYes: "Excelente medida de seguridad. La autenticación de dos factores añade una capa adicional de protección, reduciendo significativamente el riesgo de accesos no autorizados a tus sistemas críticos.",
-    explanationNo: "Es altamente recomendable implementar la autenticación de dos factores en tus sistemas críticos. Esta medida proporciona una capa adicional de seguridad, dificultando significativamente los accesos no autorizados."
+    explanationYes: "Estos podrían ser anuncios fraudulentos diseñados para ser vistos solo bajo ciertas condiciones. Si estas condiciones se cumplen, los usuarios pueden acabar en una tienda falsa creyendo que es la tienda oficial, lo que puede resultar en estafas y daño a la reputación de tu marca.",
+    explanationNo: "Aunque no hayas detectado anuncios sospechosos, es crucial mantener una vigilancia constante. Los ciberdelincuentes a menudo utilizan técnicas sofisticadas para mostrar anuncios falsos solo a ciertos usuarios o en determinadas circunstancias, lo que dificulta su detección."
   },
   {
     type: "yesno",
-    question: "¿Mantienes actualizados todos tus sistemas y software?",
+    question: "¿Has visto algún dominio que usa tu marca como por ejemplo tumarca.shop, tumarca-outlet.es pero al entrar en el dominio este no funciona o da algún error?",
     correctAnswer: true,
-    explanationYes: "Excelente práctica. Las actualizaciones regulares son cruciales para proteger contra vulnerabilidades conocidas que los ciberdelincuentes podrían explotar. Continúa manteniendo esta buena práctica.",
-    explanationNo: "Es fundamental mantener todos los sistemas y software actualizados. Las actualizaciones a menudo incluyen parches de seguridad críticos que protegen contra vulnerabilidades conocidas, reduciendo significativamente el riesgo de ataques exitosos."
+    explanationYes: "Los dominios que usan los ciberdelincuentes para suplantar una marca pueden no funcionar cuando los encuentras o dar un error. Sin embargo, esto no implica que bajo otras condiciones los usuarios no puedan verlos. Pueden activarse a través de un enlace específico, un anuncio o desde una localización concreta, formando parte de una estrategia de fraude más amplia.",
+    explanationNo: "Aunque no hayas encontrado dominios sospechosos, es importante realizar búsquedas regulares de dominios que puedan estar usando tu marca. Los ciberdelincuentes a menudo registran dominios similares a los de marcas conocidas para usarlos en sus esquemas de fraude, incluso si no están activos todo el tiempo."
   },
   {
     type: "trueFalse",
-    question: "Identifica cuáles de estos correos son intentos de phishing:",
+    question: "¿Podrías identificar en estas imágenes que es legítimo y qué no?",
     images: [
-      "../images/Phishing01.png",
-      "../images/Phishing02.png",
-      "../images/Phishing03.png",
-      "../images/Phishing04.png"
+      "../images/Phishing05.png",
+      "../images/Phishing06.png",
+      "../images/Phishing07.png",
+      "../images/Phishing08.png"
     ],
-    correctAnswer: [true, true, false, true],
-    explanationCorrect: "Has identificado correctamente los intentos de phishing. Es importante mantenerse alerta ante señales como URLs sospechosas, errores gramaticales, solicitudes urgentes de información sensible o remitentes que imitan a empresas legítimas.",
-    explanationIncorrect: "Algunas identificaciones no son correctas. Recuerda que el phishing suele mostrar señales de alerta como URLs sospechosas, errores gramaticales, solicitudes urgentes de información sensible o remitentes que imitan a empresas legítimas. Es crucial mejorar la capacidad de identificar estos intentos para proteger la seguridad de tu empresa."
+    correctAnswer: [false, false, true, false],
+    explanationCorrect: "Has demostrado una buena capacidad para identificar intentos de phishing. Esta habilidad es crucial para proteger a tu empresa y a tus clientes de posibles fraudes en línea. Recuerda siempre verificar la autenticidad de los correos electrónicos, sitios web y anuncios relacionados con tu marca.",
+    explanationIncorrect: "Identificar correctamente los intentos de phishing puede ser desafiante, pero es una habilidad crucial en el entorno digital actual. Te recomendamos prestar atención a detalles como la URL del sitio web, la calidad del diseño, la presencia de errores ortográficos y las solicitudes inusuales de información personal. Mejorar esta habilidad ayudará a proteger a tu empresa y a tus clientes de posibles fraudes en línea."
   }
 ];
