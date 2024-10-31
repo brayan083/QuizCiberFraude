@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Trophy, Send } from "lucide-react";
-import { saveQuizResult } from "@/lib/storage";
+// import { saveQuizResult } from "@/lib/storage";
 
 interface QuizFormProps {
   score: number;
@@ -27,12 +27,12 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
     setIsSubmitting(true);
     
     try {
-      await saveQuizResult({
-        name: userName,
-        score,
-        totalQuestions,
-        ...formData,
-      });
+      // await saveQuizResult({
+      //   name: userName,
+      //   score,
+      //   totalQuestions,
+      //   ...formData,
+      // });
     
       // Send email using Resend API
       const emailBody = {
