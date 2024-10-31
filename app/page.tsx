@@ -36,9 +36,7 @@ export default function Home() {
   };
 
   const handleVerify = () => {
-    // Verifica si la respuesta es correcta
     if (isAnswerCorrect(answers[currentStep], currentQuestion.correctAnswer)) {
-      // Incrementa el puntaje
       setScore(score + 1);
     }
     setIsVerified(true);
@@ -195,34 +193,39 @@ export default function Home() {
 
           {currentQuestion.type === "yesno" ? (
             <div className="grid grid-cols-2 gap-4 mb-6">
-              <Button
-                className={`py-6 text-lg ${
-                  answers[currentStep]?.[0] === true
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                }`}
-                onClick={() => handleAnswer(true)}
-                disabled={isVerified}
-              >
-                Sí
-              </Button>
-              <Button
-                className={`py-6 text-lg ${
-                  answers[currentStep]?.[0] === false
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                }`}
-                onClick={() => handleAnswer(false)}
-                disabled={isVerified}
-              >
-                No
-              </Button>
+              {!isVerified && (
+                <>
+                  <Button
+                    className={`py-6 text-lg ${
+                      answers[currentStep]?.[0] === true
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                    }`}
+                    onClick={() => handleAnswer(true)}
+                  >
+                    Sí
+                  </Button>
+                  <Button
+                    className={`py-6 text-lg ${
+                      answers[currentStep]?.[0] === false
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                    }`}
+                    onClick={() => handleAnswer(false)}
+                  >
+                    No
+                  </Button>
+                </>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 mb-6">
               {currentQuestion.images &&
                 currentQuestion.images.map((image, index) => (
-                    <div key={index} className="space-y-4 my-5 border rounded-lg p-4">
+                  <div
+                    key={index}
+                    className="space-y-4 my-5 border-2 rounded-lg p-4"
+                  >
                     <Image
                       src={image}
                       alt={`Imagen ${index + 1}`}
@@ -232,43 +235,43 @@ export default function Home() {
                     />
                     <div className="flex justify-center space-x-4 mb-10">
                       <Button
-                      className={`${
-                        answers[currentStep]?.[index] === true
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                      } py-4 px-8 text-xl`}
-                      onClick={() => {
-                        const newAnswers = [...answers];
-                        if (!newAnswers[currentStep]) {
-                        newAnswers[currentStep] = [];
-                        }
-                        newAnswers[currentStep][index] = true;
-                        setAnswers(newAnswers);
-                      }}
-                      disabled={isVerified}
+                        className={`${
+                          answers[currentStep]?.[index] === true
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                        } py-4 px-8 text-xl`}
+                        onClick={() => {
+                          const newAnswers = [...answers];
+                          if (!newAnswers[currentStep]) {
+                            newAnswers[currentStep] = [];
+                          }
+                          newAnswers[currentStep][index] = true;
+                          setAnswers(newAnswers);
+                        }}
+                        disabled={isVerified}
                       >
-                      Verdadero
+                        Verdadero
                       </Button>
                       <Button
-                      className={`${
-                        answers[currentStep]?.[index] === false
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                      } py-4 px-8 text-xl`}
-                      onClick={() => {
-                        const newAnswers = [...answers];
-                        if (!newAnswers[currentStep]) {
-                        newAnswers[currentStep] = [];
-                        }
-                        newAnswers[currentStep][index] = false;
-                        setAnswers(newAnswers);
-                      }}
-                      disabled={isVerified}
+                        className={`${
+                          answers[currentStep]?.[index] === false
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                        } py-4 px-8 text-xl`}
+                        onClick={() => {
+                          const newAnswers = [...answers];
+                          if (!newAnswers[currentStep]) {
+                            newAnswers[currentStep] = [];
+                          }
+                          newAnswers[currentStep][index] = false;
+                          setAnswers(newAnswers);
+                        }}
+                        disabled={isVerified}
                       >
-                      Falso
+                        Falso
                       </Button>
                     </div>
-                    </div>
+                  </div>
                 ))}
             </div>
           )}
@@ -298,11 +301,6 @@ export default function Home() {
                             currentQuestion.explanationCorrect
                           : currentQuestion.explanationNo ||
                             currentQuestion.explanationIncorrect}
-                        {/* {answers[currentStep][0] === currentQuestion.correctAnswer
-                          ? currentQuestion.explanationYes ||
-                            currentQuestion.explanationCorrect
-                          : currentQuestion.explanationNo ||
-                            currentQuestion.explanationIncorrect} */}
                       </p>
                     </div>
                     <div className="flex justify-center">

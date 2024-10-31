@@ -76,7 +76,9 @@ body.custom-background {
   position: static;
   background-image: url('../public/images/Fondo\ 02derecha.jpg');
   /* background-size: cover; */
-  background-repeat: repeat-y;
+  background-repeat: no-repeat;
+  /* background-position: center; */
+  background-attachment: fixed;
 }
 
 body.custom-background::before {

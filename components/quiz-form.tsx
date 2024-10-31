@@ -25,28 +25,36 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    
     try {
-      saveQuizResult({
+      await saveQuizResult({
         name: userName,
         score,
         totalQuestions,
         ...formData,
       });
-      
-      // Send email using a form submission
-      const emailBody = `
-        Nuevo resultado del cuestionario de ciberfraude:
-        Nombre: ${userName}
-        Empresa: ${formData.company}
-        Email: ${formData.email}
-        Teléfono: ${formData.phone}
-        Puntuación: ${score}/${totalQuestions} (${Math.round((score / totalQuestions) * 100)}%)
-      `;
+    
+      // Send email using Resend API
+      const emailBody = {
+        nombre: userName,
+        empresa: formData.company,
+        email: formData.email,
+        telefono: formData.phone,
+        puntuacion: `${score}/${totalQuestions} (${Math.round((score / totalQuestions) * 100)}%)`
+      };
+    
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ emailBody: emailBody })
+    });
 
-      const mailtoLink = `mailto:hola@sumate.eu?subject=Nuevo resultado del cuestionario de ciberfraude&body=${encodeURIComponent(emailBody)}`;
-      window.location.href = mailtoLink;
-      
+    const data = await response.json();
+    console.log(data);
+        
+    
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error saving quiz result:", error);
