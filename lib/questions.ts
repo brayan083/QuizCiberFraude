@@ -45,10 +45,10 @@ export const questions = [
     type: "trueFalse",
     question: "¿Podrías identificar en estas imágenes que es legítimo y qué no?",
     images: [
-      "../images/Phishing05.png",
-      "../images/Phishing06.png",
-      "../images/Phishing07.png",
-      "../images/Phishing08.png"
+      "/images/Phishing05.png",
+      "/images/Phishing06.png",
+      "/images/Phishing07.png",
+      "/images/Phishing08.png"
     ],
     correctAnswer: [false, false, true, false],
     explanationCorrect: "Has demostrado una buena capacidad para identificar intentos de phishing. Esta habilidad es crucial para proteger a tu empresa y a tus clientes de posibles fraudes en línea. Recuerda siempre verificar la autenticidad de los correos electrónicos, sitios web y anuncios relacionados con tu marca.",
