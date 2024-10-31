@@ -46,7 +46,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         )}%)`,
       };
 
-      const response = await fetch("/api/send", {
+      const response = await fetch(`${window.location.origin}/api/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
