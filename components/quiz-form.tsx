@@ -25,7 +25,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       // await saveQuizResult({
       //   name: userName,
@@ -33,28 +33,34 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
       //   totalQuestions,
       //   ...formData,
       // });
-    
+
       // Send email using Resend API
       const emailBody = {
         nombre: userName,
         empresa: formData.company,
         email: formData.email,
         telefono: formData.phone,
-        puntuacion: `${score}/${totalQuestions} (${Math.round((score / totalQuestions) * 100)}%)`
+        puntuacion: `${score}/${totalQuestions} (${Math.round(
+          (score / totalQuestions) * 100
+        )}%)`,
       };
-    
-      const response = await fetch('/api/send', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ emailBody: emailBody })
-    });
 
-    const data = await response.json();
-    console.log(data);
-        
-    
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ emailBody: emailBody }),
+      });
+
+      // Verifica si la respuesta es válida y no está vacía
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error saving quiz result:", error);
@@ -75,7 +81,8 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
               ¡Gracias por participar!
             </h2>
             <p className="text-xl text-gray-600">
-              Nos pondremos en contacto contigo pronto con tu valoración personalizada.
+              Nos pondremos en contacto contigo pronto con tu valoración
+              personalizada.
             </p>
           </Card>
         </div>
@@ -102,9 +109,9 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
               ¿Quieres recibir una valoración personalizada?
             </h3>
             <p className="text-gray-600">
-              Déjanos tus datos y nuestro equipo de expertos en ciberseguridad te
-              contactará con un análisis detallado y recomendaciones específicas
-              para tu empresa.
+              Déjanos tus datos y nuestro equipo de expertos en ciberseguridad
+              te contactará con un análisis detallado y recomendaciones
+              específicas para tu empresa.
             </p>
           </div>
 
