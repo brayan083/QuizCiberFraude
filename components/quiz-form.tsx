@@ -46,7 +46,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         )}%)`,
       };
 
-      const response = await fetch(`${window.location.origin}/api/send`, {
+      const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
