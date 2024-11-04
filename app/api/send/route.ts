@@ -5,9 +5,11 @@ import { NextResponse } from 'next/server';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
+    console.log("Request received");
+   
     const { emailBody } = await request.json(); // Obtener el mensaje del cuerpo de la solicitud
 
-    // console.log("Mensaje recibido:", emailBody);
+    console.log("Mensaje recibido:", emailBody);
 
     try {
         const data = await resend.emails.send({
