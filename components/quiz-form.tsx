@@ -55,6 +55,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
       });
 
       // Verifica si la respuesta es válida y no está vacía
+      console.log(response);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
