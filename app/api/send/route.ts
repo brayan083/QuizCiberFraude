@@ -1,12 +1,12 @@
 import { Resend } from 'resend';
 import { EmailTemplate } from '@/components/email-template';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: Request) {
+const POST = async (request: NextRequest) => {
     console.log("Request received");
-   
+
     const { emailBody } = await request.json(); // Obtener el mensaje del cuerpo de la solicitud
 
     console.log("Mensaje recibido:", emailBody);
@@ -30,3 +30,7 @@ export async function POST(request: Request) {
     }
 
 };
+
+export {
+    POST
+}
