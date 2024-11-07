@@ -1,11 +1,11 @@
 function generarMensaje(puntuacion: string): string {
     const puntuacionInt = extraerPuntuacion(puntuacion);
 
-    if (puntuacionInt >= 0 && puntuacionInt <= 30) {
+    if (puntuacionInt > 60 && puntuacionInt <= 100) {
         return "<p>Parece que en este momento no eres víctima de ciberfraude. Debes estar alerta por si más adelante detectas alguno de los casos comentados en el quiz.</p>";
     } else if (puntuacionInt > 30 && puntuacionInt <= 60) {
         return "<p>Puedes estar sufriendo un ataque de suplantación de marca, sería conveniente una revisión para descartar. En Súmate contamos con un servicio de ciberfraude y podemos analizar tu caso para que salgas de dudas.</p>";
-    } else if (puntuacionInt > 60 && puntuacionInt <= 100) {
+    } else if (puntuacionInt >= 0 && puntuacionInt <= 30) {
         return "<p>Hay varios indicadores que nos hacen pensar que tu marca está siendo víctima de ciberfraude. Podemos ayudarte para detectar de dónde viene el problema y atajarlo.</p>";
     } else {
         return "<p>Puntuación inválida.</p>";
