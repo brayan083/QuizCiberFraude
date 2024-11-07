@@ -7,7 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Shield, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { QuizForm } from "@/components/quiz-form";
 import { questions } from "@/lib/questions";
+import { CheckCircle, XCircle } from 'lucide-react';
 import Image from "next/image";
+import { url } from "inspector";
 
 export default function Home() {
   const [userName, setUserName] = useState("");
@@ -66,12 +68,12 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
-            <Shield className="w-16 h-16 text-blue-400 mx-auto mb-6" />
+            <Shield className="w-16 h-16 text-blue-400 mx-auto mb-6" /> 
             <h1 className="text-4xl font-bold text-white mb-4">
-              Test de Ciberseguridad Empresarial
+              TEST DE CIBERFRAUDE PARA EMPRESAS
             </h1>
             <p className="text-xl text-gray-400 mb-8">
-              Evalúa el nivel de protección de tu empresa contra el ciberfraude
+              Evalúa el nivel de protección frente a la suplantación de marca.
             </p>
           </div>
 
@@ -86,7 +88,7 @@ export default function Home() {
                     7 Preguntas Clave
                   </h3>
                   <p className="text-gray-600">
-                    Evaluación completa de tus prácticas de seguridad
+                    Reflexiona sobre diferentes áreas de tu organización
                   </p>
                 </div>
               </div>
@@ -100,7 +102,7 @@ export default function Home() {
                     Resultados Instantáneos
                   </h3>
                   <p className="text-gray-600">
-                    Obtén una evaluación inmediata de tu nivel de protección
+                    Te enviaremos una valoración sobre tu nivel de ciberfraude
                   </p>
                 </div>
               </div>
@@ -114,7 +116,8 @@ export default function Home() {
                     Asesoramiento Personalizado
                   </h3>
                   <p className="text-gray-600">
-                    Recibe recomendaciones específicas para tu empresa
+                    Nuestros analistas pueden valorar si tu marca está afectada
+                    para que actúes cuanto antes.
                   </p>
                 </div>
               </div>
@@ -221,58 +224,79 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-1 gap-4 mb-6">
               {currentQuestion.images &&
-                currentQuestion.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="space-y-4 my-5 border-2 rounded-lg p-4"
-                  >
-                    <Image
-                      src={image}
-                      alt={`Imagen ${index + 1}`}
-                      className="w-full rounded-lg shadow-md"
-                      width={700}
-                      height={475}
-                    />
-                    <div className="flex justify-center space-x-4 mb-10">
-                      <Button
-                        className={`${
-                          answers[currentStep]?.[index] === true
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                        } py-4 px-8 text-xl`}
-                        onClick={() => {
-                          const newAnswers = [...answers];
-                          if (!newAnswers[currentStep]) {
-                            newAnswers[currentStep] = [];
-                          }
-                          newAnswers[currentStep][index] = true;
-                          setAnswers(newAnswers);
-                        }}
-                        disabled={isVerified}
-                      >
-                        Verdadero
-                      </Button>
-                      <Button
-                        className={`${
-                          answers[currentStep]?.[index] === false
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-                        } py-4 px-8 text-xl`}
-                        onClick={() => {
-                          const newAnswers = [...answers];
-                          if (!newAnswers[currentStep]) {
-                            newAnswers[currentStep] = [];
-                          }
-                          newAnswers[currentStep][index] = false;
-                          setAnswers(newAnswers);
-                        }}
-                        disabled={isVerified}
-                      >
-                        Falso
-                      </Button>
+                currentQuestion.images.map((image, index) => {
+                  const userAnswer = answers[currentStep]?.[index];
+                  const correctAnswer = currentQuestion.correctAnswer[index];
+                  const isCorrect = userAnswer === correctAnswer;
+
+                  return (
+                    <div
+                      key={index}
+                      className={`space-y-4 my-5 border-2 rounded-lg p-4 ${
+                        isVerified
+                          ? isCorrect
+                            ? "border-green-500 border-4"
+                            : "border-red-500 border-4"
+                          : ""
+                      }`}
+                    >
+                      <Image
+                        src={image}
+                        alt={`Imagen ${index + 1}`}
+                        className="w-full rounded-lg shadow-md"
+                        width={700}
+                        height={475}
+                      />
+                      {isVerified && (
+                        <div className="flex justify-center mt-2">
+                          {isCorrect ? (
+                            <CheckCircle className="text-green-500 w-10 h-10" />
+                          ) : (
+                            <XCircle className="text-red-500 w-10 h-10" />
+                          )}
+                        </div>
+                      )}
+                      <div className="flex justify-center space-x-4 mb-10">
+                        <Button
+                          className={`${
+                            userAnswer === true
+                              ? "bg-blue-600 text-white"
+                              : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                          } py-4 px-8 text-xl`}
+                          onClick={() => {
+                            const newAnswers = [...answers];
+                            if (!newAnswers[currentStep]) {
+                              newAnswers[currentStep] = [];
+                            }
+                            newAnswers[currentStep][index] = true;
+                            setAnswers(newAnswers);
+                          }}
+                          disabled={isVerified}
+                        >
+                          Verdadero
+                        </Button>
+                        <Button
+                          className={`${
+                            userAnswer === false
+                              ? "bg-blue-600 text-white"
+                              : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                          } py-4 px-8 text-xl`}
+                          onClick={() => {
+                            const newAnswers = [...answers];
+                            if (!newAnswers[currentStep]) {
+                              newAnswers[currentStep] = [];
+                            }
+                            newAnswers[currentStep][index] = false;
+                            setAnswers(newAnswers);
+                          }}
+                          disabled={isVerified}
+                        >
+                          Falso
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
             </div>
           )}
 
