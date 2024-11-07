@@ -42,8 +42,8 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         talkToAnalyst: formData.talkToAnalyst,
       };
 
-      const response = await fetch(`http://localhost:3000/api/sendemail`, {
-        // const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/send`, {
+      // const response = await fetch(`http://localhost:3000/api/sendemail`, {
+      const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,7 +182,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
                   }
                 />
                 <span className="text-gray-700">
-                Quiero hablar con un analista de Súmate para que verifique si mi web tiene ciberfraude.
+                  Quiero hablar con un analista de Súmate para que verifique si mi web tiene ciberfraude.
                 </span>
               </label>
             </div>
