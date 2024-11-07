@@ -51,15 +51,13 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         body: JSON.stringify({ emailBody: emailBody }),
       });
 
-      console.log("response", response);
+      // Verifica si la respuesta es válida y no está vacía
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      // // Verifica si la respuesta es válida y no está vacía
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`);
-      // }
-
-      // const data = await response.json();
-      // console.log(data);
+      const data = await response.json();
+      console.log(data);
 
       setIsSubmitted(true);
     } catch (error) {
