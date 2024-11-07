@@ -18,6 +18,8 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
     company: "",
     email: "",
     phone: "",
+    sendResults: true,
+    talkToAnalyst: true,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -27,14 +29,6 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
     setIsSubmitting(true);
 
     try {
-      // await saveQuizResult({
-      //   name: userName,
-      //   score,
-      //   totalQuestions,
-      //   ...formData,
-      // });
-      // soy el cambio
-
       // Send email using Resend API
       const emailBody = {
         nombre: userName,
@@ -44,10 +38,12 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         puntuacion: `${score}/${totalQuestions} (${Math.round(
           (score / totalQuestions) * 100
         )}%)`,
+        sendResults: formData.sendResults,
+        talkToAnalyst: formData.talkToAnalyst,
       };
 
-      // const response = await fetch(`http://localhost:3000/api/send`, {
-        const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/send`, {
+      const response = await fetch(`http://localhost:3000/api/sendemail`, {
+        // const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,13 +51,15 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         body: JSON.stringify({ emailBody: emailBody }),
       });
 
-      // Verifica si la respuesta es válida y no está vacía
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      console.log("response", response);
 
-      const data = await response.json();
-      console.log(data);
+      // // Verifica si la respuesta es válida y no está vacía
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`);
+      // }
+
+      // const data = await response.json();
+      // console.log(data);
 
       setIsSubmitted(true);
     } catch (error) {
@@ -149,9 +147,44 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
                 }
+                onKeyPress={(e) => {
+                  if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
                 required
                 className="w-full p-3"
               />
+            </div>
+            <div>
+              <label className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  checked={formData.sendResults}
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  onChange={(e) =>
+                    setFormData({ ...formData, sendResults: e.target.checked })
+                  }
+                />
+                <span className="text-gray-700">
+                  ¿Desea que le envíen los resultados al email?
+                </span>
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  checked={formData.talkToAnalyst}
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  onChange={(e) =>
+                    setFormData({ ...formData, talkToAnalyst: e.target.checked })
+                  }
+                />
+                <span className="text-gray-700">
+                Quiero hablar con un analista de Súmate para que verifique si mi web tiene ciberfraude.
+                </span>
+              </label>
             </div>
             <Button
               type="submit"
