@@ -79,8 +79,14 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
               ¡Gracias por participar!
             </h2>
             <p className="text-xl text-gray-600">
-              Nos pondremos en contacto contigo pronto con tu valoración
-              personalizada.
+                {formData.sendResults && formData.talkToAnalyst
+                ? "Nos pondremos en contacto contigo pronto con tu valoración personalizada."
+                : formData.sendResults
+                ? "Te enviaremos los resultados a tu email."
+                : formData.talkToAnalyst
+                ? "Un analista se pondrá en contacto contigo para verificar si tu web tiene ciberfraude."
+                : "Gracias por participar en el quiz."}
+              
             </p>
           </Card>
         </div>
