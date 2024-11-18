@@ -67,7 +67,8 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
     }
   };
 
-  const percentage = Math.round((score / totalQuestions) * 100);
+  const porcentaje = Math.round((score / totalQuestions) * 100);
+  console.log("porcentaje", porcentaje);
 
   if (isSubmitted) {
     return (
@@ -79,14 +80,14 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
               ¡Gracias por participar!
             </h2>
             <p className="text-xl text-gray-600">
-                {formData.sendResults && formData.talkToAnalyst
+              {formData.sendResults && formData.talkToAnalyst
                 ? "Nos pondremos en contacto contigo pronto con tu valoración personalizada."
                 : formData.sendResults
-                ? "Te enviaremos los resultados a tu email."
-                : formData.talkToAnalyst
-                ? "Un analista se pondrá en contacto contigo para verificar si tu web tiene ciberfraude."
-                : "Gracias por participar en el quiz."}
-              
+                  ? "Te enviaremos los resultados a tu email."
+                  : formData.talkToAnalyst
+                    ? "Un analista se pondrá en contacto contigo para verificar si tu web tiene ciberfraude."
+                    : "Gracias por participar en el quiz."}
+
             </p>
           </Card>
         </div>
@@ -101,25 +102,39 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
           <div className="text-center mb-8">
             <Trophy className="w-16 h-16 text-blue-600 mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              ¡Enhorabuena, {userName}!
+              {userName.toUpperCase()}, AQUÍ TIENES TU RESULTADO
             </h2>
             <div className="text-xl text-gray-600">
-              Tu puntuación: {score} de {totalQuestions} ({percentage}%)
+              Tu puntuación: {porcentaje}%
             </div>
           </div>
 
           <div className="mb-8">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              ¿Quieres recibir una valoración personalizada?
+              {porcentaje >= 60 && (
+                <>
+                  Parece que en este momento no eres víctima de ciberfraude. Debes estar alerta por si más adelante detectas alguno de los casos comentados en el quiz.
+                </>
+              )}
+              {porcentaje >= 30 && porcentaje < 60 && (
+                <>
+                  Puedes estar sufriendo un ataque de suplantación de marca, sería conveniente una revisión para descartar. En Súmate contamos con un servicio de ciberfraude y podemos analizar tu caso para que salgas de dudas.
+                </>
+              )}
+              {porcentaje > 60 && (
+                <>
+                  Hay varios indicadores que nos hacen pensar que tu marca está siendo víctima de ciberfraude. Podemos ayudarte para detectar de dónde viene el problema y atajarlo.
+                </>
+              )}
             </h3>
-            <p className="text-gray-600">
-              Déjanos tus datos y nuestro equipo de expertos en ciberseguridad
-              te contactará con un análisis detallado y recomendaciones
-              específicas para tu empresa.
-            </p>
+
+
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <h3>
+              Rellena el siguiente formulario y te enviaremos los resultados vía email.
+            </h3>
             <div>
               <Input
                 placeholder="Empresa"
