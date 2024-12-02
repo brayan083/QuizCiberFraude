@@ -121,7 +121,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
                   Puedes estar sufriendo un ataque de suplantación de marca, sería conveniente una revisión para descartar. En Súmate contamos con un servicio de ciberfraude y podemos analizar tu caso para que salgas de dudas.
                 </>
               )}
-              {porcentaje > 60 && (
+              {porcentaje < 30 && (
                 <>
                   Hay varios indicadores que nos hacen pensar que tu marca está siendo víctima de ciberfraude. Podemos ayudarte para detectar de dónde viene el problema y atajarlo.
                 </>
