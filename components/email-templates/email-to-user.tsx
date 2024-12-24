@@ -26,30 +26,36 @@ export default function emailTemplateUser(
 ): string {
     return `
         <html>
-            <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; background-image: url('./public/images/Fondo 02derecha.jpg'); background-size: cover;">
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: rgba(255, 255, 255, 0.8);">
+
+            <body
+                style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; background-image: url('./public/images/Fondo 02derecha.jpg'); background-size: cover;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+                    style="border-collapse: collapse; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">
                     <tr>
-                        <td align="center" bgcolor="#70bbd9" style="padding: 40px 0 30px 0;">
-                            <h1 style="color: #fff; text-align: center;">¡Hola ${firstName}!</h1>
-                            <p style="font-size: 16px; text-align: center;">Gracias por completar el cuestionario. Tu puntuación ha sido de <strong>${puntuacion}%</strong>.</p>
+                        <td align="center" bgcolor="#193643" style="padding: 40px 0 30px 0;">
+                            <h1 style="color: #fff; text-align: center; margin: 0;">¡Hola ${firstName}!</h1>
+                            <p style="font-size: 16px; text-align: center; color: #fff; margin: 10px 0 0 0;">Gracias por completar el cuestionario. Tu puntuación ha sido de <strong>${puntuacion}</strong>.</p>
                         </td>
                     </tr>
                     <tr>
                         <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
-                            <div style="background-color: #70bbab; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                            <div style="background-color: #008bad; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); color: #fff; text-align: center;">
                                 ${generarMensaje(puntuacion)}
                             </div>
-                            <p style="font-size: 16px; text-align: center;">Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos.</p>
-                            <p style="font-size: 16px; text-align: center;">Saludos,<br/><strong>El equipo de Súmate</strong></p>
+                            <p style="font-size: 16px; text-align: center; margin: 20px 0;">Si tienes alguna pregunta o necesitas más información, no dudes en contactar con nosotros en el email <a href="mailto:hola@sumate.eu" style="color: #008bad;">hola@sumate.eu</a> o a través del teléfono 911 239 125.</p>
+                            <p style="font-size: 16px; text-align: center; margin: 20px 0;">También puedes visitar nuestra página de contacto en <a href="https://www.sumate.eu/contacto/" style="color: #008bad;">https://www.sumate.eu/contacto/</a>.</p>
+                            <p style="font-size: 16px; text-align: center; margin: 20px 0;">Saludos,<br /><strong>El equipo de Súmate</strong></p>
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#70bbd9" style="padding: 30px 30px 30px 30px;">
-                        <p style="color: #ffffff; font-size: 14px; margin: 0;">&copy; 2024 Sumate. Todos los derechos reservados.</p>
+                        <td bgcolor="#f98345" style="padding: 30px 30px 30px 30px;">
+                            <p style="color: #ffffff; font-size: 14px; margin: 0; text-align: center;">&copy; 2024 Sumate. Todos los
+                                derechos reservados.</p>
                         </td>
                     </tr>
                 </table>
             </body>
+
         </html>
       `;
 }

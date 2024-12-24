@@ -28,6 +28,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
+
     try {
       // Send email using Resend API
       const emailBody = {
@@ -68,7 +69,7 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
   };
 
   const porcentaje = Math.round((score / totalQuestions) * 100);
-  console.log("porcentaje", porcentaje);
+  // console.log("porcentaje", porcentaje);
 
   if (isSubmitted) {
     return (
