@@ -5,6 +5,10 @@ export default function Posts() {
         <div>
             <hr className="my-8 border-gray-200" />
 
+            <h2 className='text-lg font-bold text-gray-800 mb-4 text-center'>
+                ¿Quieres saber más sobre ciberseguridad y suplantación de marca? Aquí tienes tres artículos de nuestro blog que te ayudarán a despejar dudas.
+            </h2>
+
             <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
 
                 <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow text-left">
