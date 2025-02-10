@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest) => {
         // Este es el email que se le envía al equipo de sumate
         const mailOptionsCompany = {
             from: user,
-            to: 'brayan@sumate.eu',
+            to: 'ana.rodilla@sumate.eu',
             subject: 'New user in the Quiz!',
             html: emailTemplateCompany(
                 emailBody.nombre,
