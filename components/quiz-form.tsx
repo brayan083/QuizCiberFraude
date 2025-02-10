@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Trophy, Send } from "lucide-react";
-// import { saveQuizResult } from "@/lib/storage";
+import Posts from "./posts";
 
 interface QuizFormProps {
   score: number;
@@ -43,8 +43,26 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
         talkToAnalyst: formData.talkToAnalyst,
       };
 
-      // const response = await fetch(`http://localhost:3000/api/sendemail`, {
-      const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/sendemail`, {
+      const responseCreateUser = await fetch(`http://localhost:3000/api/createUser`, {
+        // const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/createUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userName,
+          company: formData.company,
+          email: formData.email,
+          telefono: Number(formData.phone),
+          score: `${score}/${totalQuestions} (${Math.round(
+            (score / totalQuestions) * 100
+          )}%)`,
+          talkToAnalyst: formData.talkToAnalyst,
+        }),
+      });
+
+      const response = await fetch(`http://localhost:3000/api/sendemail`, {
+        // const response = await fetch(`https://quiz-ciber-fraude.vercel.app/api/sendemail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,12 +71,16 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
       });
 
       // Verifica si la respuesta es válida y no está vacía
+      if (!responseCreateUser.ok) {
+        throw new Error(`HTTP error! status: ${responseCreateUser.status}`);
+      }
+      // Verifica si la respuesta es válida y no está vacía
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       setIsSubmitted(true);
     } catch (error) {
@@ -90,6 +112,8 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
                     : "Gracias por participar en el quiz."}
 
             </p>
+
+            <Posts />
           </Card>
         </div>
       </div>
@@ -206,15 +230,20 @@ export function QuizForm({ score, totalQuestions, userName }: QuizFormProps) {
                 </span>
               </label>
             </div>
+            <p className="text-sm text-gray-600 mt-4">
+              Tras la solicitud de resultados entras a formar parte de la base de datos de Súmate para comunicaciones.
+            </p>
             <Button
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Enviando..." : "Solicitar Valoración"}
+              {isSubmitting ? "Enviando..." : "Enviar resultados"}
               <Send className="ml-2 h-5 w-5" />
             </Button>
           </form>
+
+          <Posts />
         </Card>
       </div>
     </div>
